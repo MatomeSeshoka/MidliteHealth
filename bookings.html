@@ -425,13 +425,17 @@
     </div>
   </div>
 
+  <!-- FOOTER -->
   <footer>
-    <p><strong>Dr. Galane E.M</strong> | Tel: 064 536 5912</p>
-    <p><strong>Dr. Motshekga L.E</strong> | Tel: 084 036 2034</p>
-    <p>© 2026 Medlite Health • PR No. 1174274</p>
+    <p><strong>Dr. Galane E.M</strong> | Tel: 064 536 5912 | dremgalane@gmail.com</p>
+    <p><strong>Dr. Motshekga L.E</strong> | Tel: 084 036 2034 | lesedi.emmanuel@dr.com</p>
+    <p style="margin-top:30px;">
+      © 2026 Medlite Health • PR No. 1174274<br>
+      Excellence in Care, Compassion in Service
+    </p>
   </footer>
 
-  <script>
+<script>
     let selectedDoctor = null;
     let selectedDoctorPhone = null;
     let selectedDate = null;
@@ -439,125 +443,140 @@
     let selectedReasons = [];
     let selectedType = "Video Call";
 
+    // Initialize Flatpickr
     const fp = flatpickr("#appointmentDate", {
-      dateFormat: "Y-m-d",
-      minDate: "today",
-      onChange: function(selectedDates, dateStr) {
-        selectedDate = dateStr;
-        updateSummary();
-      }
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        onChange: function(selectedDates, dateStr) {
+            selectedDate = dateStr;
+            updateSummary();
+        }
     });
 
     function updateSummary() {
-      document.getElementById("sumDoctor").textContent = selectedDoctor || "—";
-      document.getElementById("sumDate").textContent = selectedDate || "—";
-      document.getElementById("sumTime").textContent = selectedTime || "—";
-      document.getElementById("sumType").textContent = selectedType;
-      document.getElementById("sumReasons").textContent = selectedReasons.length ? selectedReasons.join(", ") : "None selected";
+        document.getElementById("sumDoctor").textContent = selectedDoctor || "—";
+        document.getElementById("sumDate").textContent = selectedDate || "—";
+        document.getElementById("sumTime").textContent = selectedTime || "—";
+        document.getElementById("sumType").textContent = selectedType;
+        document.getElementById("sumReasons").textContent = 
+            selectedReasons.length ? selectedReasons.join(", ") : "None selected";
     }
 
+    // Select Doctor
     window.selectDoctor = function(card) {
-      document.querySelectorAll('.doctor-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      selectedDoctor = card.dataset.name;
-      selectedDoctorPhone = card.dataset.phone;
-      updateSummary();
+        document.querySelectorAll('.doctor-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedDoctor = card.dataset.name;
+        selectedDoctorPhone = card.dataset.phone;
+        updateSummary();
     };
 
+    // Reason Chips
     function initChips() {
-      document.querySelectorAll('#reasonChips .chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          chip.classList.toggle('active');
-          const val = chip.dataset.value;
-          selectedReasons.includes(val) ? 
-            selectedReasons = selectedReasons.filter(r => r !== val) : 
-            selectedReasons.push(val);
-          updateSummary();
+        const chips = document.querySelectorAll('#reasonChips .chip');
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chip.classList.toggle('active');
+                
+                const val = chip.dataset.value;
+                
+                if (selectedReasons.includes(val)) {
+                    selectedReasons = selectedReasons.filter(r => r !== val);
+                } else {
+                    selectedReasons.push(val);
+                }
+                updateSummary();
+            });
         });
-      });
     }
 
+    // Time Slots
     function initTimeSlots() {
-      document.querySelectorAll('#timeSlots .time-slot').forEach(slot => {
-        slot.addEventListener('click', () => {
-          document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('active'));
-          slot.classList.add('active');
-          selectedTime = slot.dataset.time;
-          updateSummary();
+        const slots = document.querySelectorAll('#timeSlots .time-slot');
+        slots.forEach(slot => {
+            slot.addEventListener('click', () => {
+                // Remove active from all
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('active'));
+                // Activate clicked one
+                slot.classList.add('active');
+                
+                selectedTime = slot.dataset.time;
+                updateSummary();
+            });
         });
-      });
-    }
+    };
 
+    // Consultation Type
     window.selectType = function(btn) {
-      document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedType = btn.dataset.type;
-      updateSummary();
+        document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedType = btn.dataset.type;
+        updateSummary();
     };
 
     // Form Validation
     function validateForm() {
-      let isValid = true;
+        let isValid = true;
 
-      const name = document.getElementById('fullName');
-      const phone = document.getElementById('phone');
-      const email = document.getElementById('email');
+        const name = document.getElementById('fullName');
+        const phone = document.getElementById('phone');
+        const email = document.getElementById('email');
 
-      // Reset errors
-      document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('input').forEach(el => el.classList.remove('error'));
+        // Reset errors
+        document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('input').forEach(el => el.classList.remove('error'));
 
-      if (!name.value.trim()) {
-        document.getElementById('nameError').style.display = 'block';
-        name.classList.add('error');
-        isValid = false;
-      }
-      if (!phone.value.trim()) {
-        document.getElementById('phoneError').style.display = 'block';
-        phone.classList.add('error');
-        isValid = false;
-      }
-      if (!email.value.trim() || !email.value.includes('@')) {
-        document.getElementById('emailError').style.display = 'block';
-        email.classList.add('error');
-        isValid = false;
-      }
-      if (!selectedDoctor) {
-        alert("Please select a doctor.");
-        isValid = false;
-      }
-      if (!selectedDate) {
-        alert("Please select a preferred date.");
-        isValid = false;
-      }
-      if (!selectedTime) {
-        alert("Please select a preferred time.");
-        isValid = false;
-      }
+        if (!name.value.trim()) {
+            document.getElementById('nameError').style.display = 'block';
+            name.classList.add('error');
+            isValid = false;
+        }
+        if (!phone.value.trim()) {
+            document.getElementById('phoneError').style.display = 'block';
+            phone.classList.add('error');
+            isValid = false;
+        }
+        if (!email.value.trim() || !email.value.includes('@')) {
+            document.getElementById('emailError').style.display = 'block';
+            email.classList.add('error');
+            isValid = false;
+        }
+        if (!selectedDoctor) {
+            alert("Please select a doctor.");
+            isValid = false;
+        }
+        if (!selectedDate) {
+            alert("Please select a preferred date.");
+            isValid = false;
+        }
+        if (!selectedTime) {
+            alert("Please select a preferred time.");
+            isValid = false;
+        }
 
-      return isValid;
+        return isValid;
     }
 
     window.confirmBooking = function() {
-      if (!validateForm()) return;
+        if (!validateForm()) return;
 
-      const bookBtn = document.getElementById('bookBtn');
-      bookBtn.textContent = "Processing...";
-      bookBtn.disabled = true;
+        const bookBtn = document.getElementById('bookBtn');
+        bookBtn.textContent = "Processing...";
+        bookBtn.disabled = true;
 
-      document.getElementById('bankingDetails').style.display = 'block';
-      document.getElementById('bankingDetails').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('bankingDetails').style.display = 'block';
+        document.getElementById('bankingDetails').scrollIntoView({ behavior: 'smooth' });
     };
 
     window.proceedToWhatsApp = function() {
-      const name = document.getElementById('fullName').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const symptoms = document.getElementById('symptoms').value.trim();
+        const name = document.getElementById('fullName').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const symptoms = document.getElementById('symptoms').value.trim();
 
-      const reasonsText = selectedReasons.length ? selectedReasons.join(", ") : "General Medical Advice";
+        const reasonsText = selectedReasons.length ? selectedReasons.join(", ") : "General Medical Advice";
 
-      const whatsappMessage = `🩺 *New Consultation Booking Request*
+        const whatsappMessage = `🩺 *New Consultation Booking Request*
 
 *Patient Name:* ${name}
 *Contact:* ${phone}
@@ -575,39 +594,41 @@ ${symptoms || "Not provided"}
 Booking fee of R150 noted. 
 Please confirm my appointment.`;
 
-      const whatsappURL = `https://wa.me/${selectedDoctorPhone}?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(whatsappURL, '_blank');
+        const whatsappURL = `https://wa.me/${selectedDoctorPhone}?text=${encodeURIComponent(whatsappMessage)}`;
+        window.open(whatsappURL, '_blank');
 
-      // Success Modal
-      document.getElementById('modalMessage').innerHTML = `
-        Your booking request has been sent to <strong>${selectedDoctor}</strong> via WhatsApp.<br><br>
-        Please make the R150 booking fee payment and wait for confirmation from the doctor.<br><br>
-        <strong>Consultation Fee:</strong> R150 (payable directly to the doctor)
-      `;
-      document.getElementById('successModal').style.display = 'flex';
+        // Show success modal
+        document.getElementById('modalMessage').innerHTML = `
+            Your booking request has been sent to <strong>${selectedDoctor}</strong> via WhatsApp.<br><br>
+            Please make the R150 booking fee payment and wait for confirmation from the doctor.<br><br>
+            <strong>Consultation Fee:</strong> R150 (payable directly to the doctor)
+        `;
+        document.getElementById('successModal').style.display = 'flex';
 
-      // Reset form
-      document.getElementById('bookBtn').textContent = "Submit Booking Request";
-      document.getElementById('bookBtn').disabled = false;
-      document.getElementById('bankingDetails').style.display = 'none';
+        // Reset button
+        const bookBtn = document.getElementById('bookBtn');
+        bookBtn.textContent = "Submit Booking Request";
+        bookBtn.disabled = false;
+        document.getElementById('bankingDetails').style.display = 'none';
     };
 
     window.closeModal = function() {
-      document.getElementById('successModal').style.display = 'none';
+        document.getElementById('successModal').style.display = 'none';
     };
 
     window.toggleMobileMenu = function() {
-      alert("Mobile menu will be available soon.");
+        alert("Mobile menu will be available soon.");
     };
 
-    // Initialize everything
+    // Initialize everything when DOM is fully loaded
     function initializeBooking() {
-      initChips();
-      initTimeSlots();
-      updateSummary();
+        initChips();
+        initTimeSlots();
+        updateSummary();
     }
 
-    window.onload = initializeBooking;
-  </script>
+    // Better than window.onload
+    document.addEventListener('DOMContentLoaded', initializeBooking);
+</script>
 </body>
 </html>
