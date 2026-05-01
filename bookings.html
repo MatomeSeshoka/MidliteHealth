@@ -332,7 +332,7 @@
 
       <h3>Reason for Consultation</h3>
       <div class="reason-chips" id="reasonChips">
-        <span class="chip" data-value="General Advice">General Advice</span>
+        <span class="chip" data-value="General Advice">General Medical Advice</span>
         <span class="chip" data-value="Medical Certificate">Medical Certificate</span>
         <span class="chip" data-value="Prescription Renewal">Prescription Renewal</span>
         <span class="chip" data-value="Family Planning">Family Planning</span>
@@ -377,16 +377,16 @@
 
       <!-- Banking Details -->
       <div id="bankingDetails">
-        <h3>Payment Details (R150 Booking Fee)</h3>
-        <p><strong>Bank:</strong> [Your Bank Name]</p>
+        <h3>Banking Details</h3>
+        <p><strong>Bank:</strong> FNB </p>
         <p><strong>Account Name:</strong> Medlite Health</p>
-        <p><strong>Account Number:</strong> 1234567890</p>
-        <p><strong>Branch Code:</strong> 12345</p>
+        <p><strong>Account Number:</strong> 63113898415</p>
+        <p><strong>Branch Code:</strong> 251037</p>
         <p><strong>Reference:</strong> Your Phone Number</p>
 
         <p style="margin-top:20px; font-size:0.97rem;">
           <strong>Note:</strong> R150 is the booking fee only.<br>
-          Consultation fee (<strong>R300</strong>) will be paid directly to the doctor.
+          Consultation fee (<strong>R150</strong>) will be paid directly to the doctor.
         </p>
 
         <button onclick="proceedToWhatsApp()" class="continue-whatsapp-btn">
@@ -405,7 +405,6 @@
         <div class="summary-item"><strong>Type:</strong> <span id="sumType">Video Call</span></div>
         <div class="summary-item"><strong>Reasons:</strong> <span id="sumReasons">None selected</span></div>
         <hr style="margin:20px 0;">
-        <div class="price" id="sumPrice">R150</div>
       </div>
 
       <p style="text-align:center; margin-top:25px; font-size:0.95rem; color:#555;">
@@ -583,7 +582,7 @@ Please confirm my appointment.`;
       document.getElementById('modalMessage').innerHTML = `
         Your booking request has been sent to <strong>${selectedDoctor}</strong> via WhatsApp.<br><br>
         Please make the R150 booking fee payment and wait for confirmation from the doctor.<br><br>
-        <strong>Consultation Fee:</strong> R300 (payable directly to the doctor)
+        <strong>Consultation Fee:</strong> R150 (payable directly to the doctor)
       `;
       document.getElementById('successModal').style.display = 'flex';
 
