@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Medlite Health - Online Medical Consultations</title>
+
   <style>
     :root {
       --blue: #0077be;
@@ -11,20 +12,24 @@
       --red: #e63939;
       --light: #f8f9fa;
     }
+
     * { margin:0; padding:0; box-sizing:border-box; }
+
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       line-height: 1.6;
       color: #333;
       background: #f4f7fa;
     }
+
     .header {
       background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
     }
+
     .nav {
       max-width: 1200px;
       margin: 0 auto;
@@ -33,19 +38,12 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .logo img {
-  max-height: 80px;   /* Increased from 60px */
-  width: auto;        /* Maintains aspect ratio */
-  height: auto;       /* Scales naturally */
-}
-
-/* Smaller screens */
-@media (max-width: 768px) {
-  .logo img {
-    max-height: 55px; /* Increased from 45px */
-  }
-}
-
+      max-height: 80px;
+      width: auto;
+      height: auto;
+    }
 
     .nav-links a {
       margin: 0 15px;
@@ -53,150 +51,168 @@
       color: #333;
       font-weight: 500;
     }
-    .book-btn {
-      background: var(--blue);
-      color: white;
-      padding: 10px 25px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .book-btn:hover {
-      background: var(--red);
-    }
-    .hamburger { font-size: 1.8rem; cursor: pointer; display: block; }
 
-    /* Hero Section - based on your flyer */
+    .hamburger {
+      font-size: 1.8rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* HERO SECTION */
     .hero {
-  /* Light blue overlay + local image */
-  background: linear-gradient(rgba(4, 105, 139, 0.6), rgba(173, 216, 230, 0.6)),
-              url('assets/background.jpg') center/cover no-repeat;
-  color: rgb(12, 0, 0);
-  padding: 80px 20px 60px;
-  text-align: center;
-  position: relative;
-}
+      background: linear-gradient(rgba(0, 55, 102, 0.65), rgba(0, 119, 190, 0.55)),
+                  url('assets/background.jpg') center/cover no-repeat;
+      color: white;
+      padding: 100px 20px 80px;
+      text-align: center;
+      position: relative;
+    }
 
     .hero-content {
-      max-width: 1100px;
+      max-width: 900px;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 25px;
     }
+
     .hero h1 {
-      font-size: 2.8rem;
+      font-size: 3rem;
       line-height: 1.1;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
+
     .hero .subtitle {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       max-width: 700px;
+      margin: 0 auto 30px;
     }
-    .doctor-img {
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 8px solid white;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    }
+
     .start-btn {
+      display: inline-block;
       background: white;
-      color: var(--red);
+      color: var(--darkblue);
       padding: 16px 45px;
       font-size: 1.25rem;
+      font-weight: bold;
       border-radius: 50px;
       text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s;
     }
+
     .start-btn:hover {
-      transform: scale(1.05);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
     }
+
     /* About Section */
     .about-section {
       max-width: 1100px;
-      margin: 60px auto;
+      margin: 80px auto;
       padding: 0 20px;
       text-align: center;
     }
+
     .about-section h2 {
-      color: var(--blue);
-      font-size: 2.4rem;
+      color: var(--darkblue);
+      font-size: 2.5rem;
       margin-bottom: 30px;
     }
+
     .mission {
       background: white;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      max-width: 800px;
+      padding: 45px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      max-width: 850px;
       margin: 0 auto;
     }
 
-
-
-    /* Services Section */
+    /* Services */
     .section {
       max-width: 1200px;
-      margin: 50px auto;
+      margin: 70px auto;
       padding: 0 20px;
     }
+
+    .section h2 {
+      text-align: center;
+      color: var(--darkblue);
+      margin-bottom: 40px;
+      font-size: 2.3rem;
+    }
+
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
+      gap: 20px;
     }
+
     .service-card {
       background: white;
-      padding: 22px;
+      padding: 25px;
       border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
       font-weight: 500;
+      text-align: center;
     }
 
     /* Doctors Section */
     .doctors {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      gap: 40px;
     }
-    .doctor-card img {
-  width: 180px;        /* set a fixed width */
-  height: 180px;       /* same as width for perfect circle */
-  object-fit: cover;   /* keeps the image nicely cropped */
-  border-radius: 50%;  /* makes it circular */
-  margin: 20px auto;   /* centers the image inside the card */
-  display: block;      /* ensures margin auto works */
-}
+
+    .doctor-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      text-align: center;
+      padding-bottom: 20px;
+    }
 
     .doctor-card img {
       width: 100%;
-      height: 220px;
+      height: 240px;
       object-fit: cover;
+    }
+
+    .doctor-card h3 {
+      margin: 20px 0 10px;
+      color: var(--darkblue);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: white;
+      padding: 70px 20px;
+      text-align: center;
+      border-radius: 20px;
+      margin: 40px 20px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.07);
     }
 
     /* Footer */
     footer {
       background: var(--darkblue);
       color: white;
-      padding: 50px 20px 30px;
+      padding: 60px 20px 40px;
       text-align: center;
     }
+
     footer p {
-      margin: 8px 0;
+      margin: 10px 0;
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.2rem; }
+      .hero h1 { font-size: 2.3rem; }
+      .hero .subtitle { font-size: 1.2rem; }
       .nav-links { display: none; }
       .hamburger { display: block; }
+      .doctor-card img { height: 200px; }
     }
+
     @media (min-width: 769px) {
       .nav-links { display: flex; }
       .hamburger { display: none; }
@@ -206,42 +222,35 @@
 <body>
 
   <!-- HEADER -->
-<header class="header">
-  <div class="nav">
-    <!-- Logo image -->
-    <a href="index.html" class="logo">
-      <img src="assets/logo.jpeg" alt="Medlite Health Logo">
-    </a>
+  <header class="header">
+    <div class="nav">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.jpeg" alt="Medlite Health Logo">
+      </a>
 
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="#">Services</a>
-      <a href="#">Doctors</a>
-      <a href="#">Blog</a>
-      <a href="#">About Us</a>
-      <a href="#">Contact</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Doctors</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+      </div>
+
+      <span class="hamburger" onclick="alert('Mobile menu coming soon')">☰</span>
     </div>
+  </header>
 
-    
-    <span class="hamburger" onclick="alert('Mobile menu coming soon')">☰</span>
-  </div>
-</header>
-
-
-  <!-- HERO SECTION (faithful to your original flyer) -->
+  <!-- HERO -->
   <section class="hero">
-  <div class="hero-content">
-    <h1>Quality Online Medical Consultations</h1>
-    <p class="subtitle">
-      Expert medical advice, from qualified doctors, wherever you are.
-    </p>
-    
-  
-  </div>
-</section>
+    <div class="hero-content">
+      <h1>Quality Online Medical Consultations</h1>
+      <p class="subtitle">
+        Expert medical advice from qualified doctors, wherever you are.
+      </p>
+    </div>
+  </section>
 
-
-  <!-- About Medlite Health -->
+  <!-- About Section -->
   <div class="about-section">
     <h2>About Medlite Health</h2>
     <div class="mission">
@@ -256,12 +265,12 @@
 
   <!-- Our Services -->
   <div class="section">
-    <h2 style="text-align:center; margin-bottom:30px; color:var(--darkblue);">Our Services</h2>
+    <h2>Our Services</h2>
     <div class="services-grid">
-      <div class="service-card">✓ Quality Medical Advices</div>
-      <div class="service-card">✓ Online Consultations</div>
-      <div class="service-card">✓ Instant Medical Prescriptions and Script Renewals</div>
-      <div class="service-card">✓ Medical Certificate</div>
+      <div class="service-card">✓ Quality Medical Advice</div>
+      <div class="service-card">✓ Online Video & Voice Consultations</div>
+      <div class="service-card">✓ Instant Prescriptions & Renewals</div>
+      <div class="service-card">✓ Medical Certificates</div>
       <div class="service-card">✓ PDP's</div>
       <div class="service-card">✓ Family Planning</div>
       <div class="service-card">✓ Specialist Referrals</div>
@@ -271,23 +280,24 @@
 
   <!-- Meet Our Doctors -->
   <div class="section">
-    <h2 style="text-align:center; margin-bottom:30px; color:var(--darkblue);">Meet Our Doctors</h2>
+    <h2>Meet Our Doctors</h2>
     <div class="doctors">
       <div class="doctor-card">
         <img src="assets/DrGalane.jpg" alt="Dr. Galane">
-        <div style="padding:20px;">
+        <div style="padding: 0 20px;">
           <h3>Dr. Galane E.M</h3>
           <p>MBCHB(SMU)<br>
-             Tel: 064 536 5912<br>
+             Tel: <strong>064 536 5912</strong><br>
              Email: dremgalane@gmail.com</p>
         </div>
       </div>
+
       <div class="doctor-card">
         <img src="assets/lee.jpg" alt="Dr. Motshekga">
-        <div style="padding:20px;">
+        <div style="padding: 0 20px;">
           <h3>Dr. Motshekga L.E</h3>
           <p>MBCHB(SMU)<br>
-             Tel: 084 036 2034<br>
+             Tel: <strong>084 036 2034</strong><br>
              Email: lesedi.emmanuel@dr.com</p>
         </div>
       </div>
@@ -295,7 +305,7 @@
   </div>
 
   <!-- Call to Action -->
-  <div class="section" style="text-align:center; background:white; padding:60px 20px; border-radius:16px; margin:40px 20px; box-shadow:0 5px 20px rgba(0,0,0,0.05);">
+  <div class="section cta-section">
     <h2 style="color:var(--darkblue);">Ready for a quick check-in?</h2>
     <p style="font-size:1.2rem; max-width:600px; margin:20px auto;">
       Get quality medical advice from trusted doctors in minutes.
@@ -309,8 +319,9 @@
   <footer>
     <p><strong>Dr. Galane E.M</strong> | Tel: 064 536 5912 | dremgalane@gmail.com</p>
     <p><strong>Dr. Motshekga L.E</strong> | Tel: 084 036 2034 | lesedi.emmanuel@dr.com</p>
-    <p style="margin-top:20px;">
-      © 2026 Medlite Health • PR No. 1174274 • Excellence in Care, Compassion in Service
+    <p style="margin-top:30px;">
+      © 2026 Medlite Health • PR No. 1174274<br>
+      Excellence in Care, Compassion in Service
     </p>
   </footer>
 
