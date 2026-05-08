@@ -10,7 +10,7 @@
       --blue: #0077be;
       --darkblue: #003366;
       --red: #e63939;
-      --light: #f8f9fa;
+      --lightblue: #f0f7ff;
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -40,22 +40,96 @@
     }
 
     .logo img {
-      max-height: 80px;
+      max-height: 75px;
       width: auto;
-      height: auto;
     }
 
+    /* Desktop Navigation */
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
     .nav-links a {
-      margin: 0 15px;
       text-decoration: none;
-      color: #333;
+      color: var(--darkblue);
       font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: var(--blue);
     }
 
     .hamburger {
       font-size: 1.8rem;
       cursor: pointer;
       display: none;
+      color: var(--darkblue);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 300px;
+      height: 100vh;
+      background: white;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+      transition: right 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+      z-index: 2000;
+      padding: 80px 25px 30px;
+      overflow-y: auto;
+    }
+    .mobile-menu.active {
+      right: 0;
+    }
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .mobile-menu-close {
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--darkblue);
+    }
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .mobile-menu-links a {
+      text-decoration: none;
+      color: var(--darkblue);
+      font-size: 1.15rem;
+      font-weight: 500;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 1999;
+    }
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Smooth scrolling adjustment */
+    #about, #services, #doctors, #footer {
+      scroll-margin-top: 90px;
     }
 
     /* HERO SECTION */
@@ -212,11 +286,6 @@
       .hamburger { display: block; }
       .doctor-card img { height: 200px; }
     }
-
-    @media (min-width: 769px) {
-      .nav-links { display: flex; }
-      .hamburger { display: none; }
-    }
   </style>
 </head>
 <body>
@@ -228,17 +297,36 @@
         <img src="assets/logo.jpeg" alt="Medlite Health Logo">
       </a>
 
-      <div class="nav-links">
+      <!-- Desktop Navigation -->
+      <nav class="nav-links">
         <a href="index.html">Home</a>
-        <a href="#">Services</a>
-        <a href="#">Doctors</a>
-        <a href="#">About Us</a>
-        <a href="#">Contact</a>
-      </div>
+        <a href="#services">Services</a>
+        <a href="#doctors">Our Doctors</a>
+        <a href="#about">About Us</a>
+        <a href="#footer">Contact</a>
+      </nav>
 
-      <span class="hamburger" onclick="alert('Mobile menu coming soon')">☰</span>
+      <span class="hamburger" onclick="toggleMobileMenu()">☰</span>
     </div>
   </header>
+
+  <!-- Mobile Menu -->
+  <div class="overlay" id="overlay" onclick="toggleMobileMenu()"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.jpeg" alt="Medlite Health Logo" style="max-height: 60px;">
+      </a>
+      <span class="mobile-menu-close" onclick="toggleMobileMenu()">✕</span>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+      <a href="#services" onclick="toggleMobileMenu()">Services</a>
+      <a href="#doctors" onclick="toggleMobileMenu()">Our Doctors</a>
+      <a href="#about" onclick="toggleMobileMenu()">About Us</a>
+      <a href="#footer" onclick="toggleMobileMenu()">Contact</a>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -251,7 +339,7 @@
   </section>
 
   <!-- About Section -->
-  <div class="about-section">
+  <div class="about-section" id="about">
     <h2>About Medlite Health</h2>
     <div class="mission">
       <h3 style="color:var(--blue); margin-bottom:20px;">Our Mission</h3>
@@ -264,7 +352,7 @@
   </div>
 
   <!-- Our Services -->
-  <div class="section">
+  <div class="section" id="services">
     <h2>Our Services</h2>
     <div class="services-grid">
       <div class="service-card">✓ Quality Medical Advice</div>
@@ -279,7 +367,7 @@
   </div>
 
   <!-- Meet Our Doctors -->
-  <div class="section">
+  <div class="section" id="doctors">
     <h2>Meet Our Doctors</h2>
     <div class="doctors">
       <div class="doctor-card">
@@ -316,7 +404,7 @@
   </div>
 
   <!-- FOOTER -->
-  <footer>
+  <footer id="footer">
     <p><strong>Dr. Galane E.M</strong> | Tel: 064 536 5912 | dremgalane@gmail.com</p>
     <p><strong>Dr. Motshekga L.E</strong> | Tel: 084 036 2034 | lesedi.emmanuel@dr.com</p>
     <p style="margin-top:30px;">
@@ -326,6 +414,15 @@
   </footer>
 
   <script>
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('overlay');
+      
+      menu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
     console.log("%cMedlite Health Homepage loaded successfully ✓", "color:#0077be; font-weight:bold");
   </script>
 </body>
