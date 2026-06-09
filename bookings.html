@@ -48,7 +48,6 @@
       width: auto;
     }
 
-    /* Desktop Navigation */
     .nav-links {
       display: flex;
       gap: 25px;
@@ -70,7 +69,6 @@
       color: var(--darkblue);
     }
 
-    /* Mobile Menu */
     .mobile-menu {
       position: fixed;
       top: 0;
@@ -164,7 +162,6 @@
       font-size: 1.25rem;
     }
 
-    /* Doctor Cards */
     .doctor-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -199,8 +196,7 @@
       border: 3px solid #f0f7ff;
     }
 
-    /* Form Elements */
-    input, textarea, #appointmentDate {
+    input, textarea, #appointmentDate, #customTime {
       width: 100%;
       padding: 15px 18px;
       margin: 8px 0 20px;
@@ -279,7 +275,6 @@
       cursor: not-allowed;
     }
 
-    /* Banking Details */
     #bankingDetails {
       display: none;
       background: #fff9e6;
@@ -302,7 +297,6 @@
       margin-top: 15px;
     }
 
-    /* Sidebar - Sticky Summary */
     .sidebar {
       position: sticky;
       top: 100px;
@@ -323,7 +317,6 @@
     }
     .summary-item strong { color: var(--darkblue); }
 
-    /* Error Styling */
     .error {
       border-color: #e63939 !important;
       background-color: #fff0f0;
@@ -367,7 +360,6 @@
       margin: 10px 0;
     }
 
-    /* Responsive */
     @media (max-width: 992px) {
       .nav-links { display: none; }
       .hamburger { display: block; }
@@ -386,7 +378,6 @@
         <img src="assets/logo.jpeg" alt="Medlite Health Logo">
       </a>
 
-      <!-- Desktop Navigation -->
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="index.html#about">About Us</a>
@@ -418,71 +409,76 @@
   </div>
 
   <div class="booking-container">
-    <!-- Main Form -->
     <div class="form-section">
       <h1>Book Your Online Consultation</h1>
       <p class="subtitle">Quick, secure & confidential medical advice from trusted doctors</p>
 
-      <h3>Choose a Doctor</h3>
-      <div class="doctor-grid">
-        <div class="doctor-card" data-name="Dr. Galane E.M" data-phone="27645365912" onclick="selectDoctor(this)">
-          <img src="assets/DrGalane.jpg" alt="Dr Galane">
-          <strong>Dr. Galane E.M</strong><br>
-          MBCHB(SMU) • General Practitioner<br>
-          <span style="color:green;">Available today</span>
+      <!-- Netlify Form -->
+      <form name="booking-request" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="booking-request">
+
+        <h3>Choose a Doctor</h3>
+        <div class="doctor-grid">
+          <div class="doctor-card" data-name="Dr. Galane E.M" data-phone="27645365912" onclick="selectDoctor(this)">
+            <img src="assets/DrGalane.jpg" alt="Dr Galane">
+            <strong>Dr. Galane E.M</strong><br>
+            MBCHB(SMU) • General Practitioner<br>
+            <span style="color:green;">Available today</span>
+          </div>
+          <div class="doctor-card" data-name="Dr. Motshekga L.E" data-phone="27840362034" onclick="selectDoctor(this)">
+            <img src="assets/lee.jpg" alt="Dr Motshekga">
+            <strong>Dr. Motshekga L.E</strong><br>
+            MBCHB(SMU) • General Practitioner<br>
+            <span style="color:green;">Available today</span>
+          </div>
         </div>
-        <div class="doctor-card" data-name="Dr. Motshekga L.E" data-phone="27840362034" onclick="selectDoctor(this)">
-          <img src="assets/lee.jpg" alt="Dr Motshekga">
-          <strong>Dr. Motshekga L.E</strong><br>
-          MBCHB(SMU) • General Practitioner<br>
-          <span style="color:green;">Available today</span>
+
+        <h3>Reason for Consultation</h3>
+        <div class="reason-chips" id="reasonChips">
+          <span class="chip" data-value="General Advice">General Medical Advice</span>
+          <span class="chip" data-value="Medical Certificate">Medical Certificate</span>
+          <span class="chip" data-value="Prescription Renewal">Prescription Renewal</span>
+          <span class="chip" data-value="Family Planning">Family Planning</span>
+          <span class="chip" data-value="PDP's">PDP's</span>
+          <span class="chip" data-value="Specialist Referral">Specialist Referral</span>
         </div>
-      </div>
 
-      <h3>Reason for Consultation</h3>
-      <div class="reason-chips" id="reasonChips">
-        <span class="chip" data-value="General Advice">General Medical Advice</span>
-        <span class="chip" data-value="Medical Certificate">Medical Certificate</span>
-        <span class="chip" data-value="Prescription Renewal">Prescription Renewal</span>
-        <span class="chip" data-value="Family Planning">Family Planning</span>
-        <span class="chip" data-value="PDP's">PDP's</span>
-        <span class="chip" data-value="Specialist Referral">Specialist Referral</span>
-      </div>
+        <h3>Preferred Date</h3>
+        <input type="text" id="appointmentDate" name="date" placeholder="Select Date" readonly>
 
-      <h3>Preferred Date</h3>
-      <input type="text" id="appointmentDate" placeholder="Select Date" readonly>
+        <h3>Preferred Time</h3>
+        <div class="time-slots" id="timeSlots">
+          <span class="time-slot" data-time="09:00 AM">09:00 AM</span>
+          <span class="time-slot" data-time="10:00 AM">10:00 AM</span>
+          <span class="time-slot" data-time="11:30 AM">11:30 AM</span>
+          <span class="time-slot" data-time="02:00 PM">02:00 PM</span>
+          <span class="time-slot" data-time="03:30 PM">03:30 PM</span>
+        </div>
+        <input type="time" id="customTime" name="custom_time" placeholder="Or choose your own time">
 
-      <h3>Preferred Time</h3>
-      <div class="time-slots" id="timeSlots">
-        <span class="time-slot" data-time="09:00 AM">09:00 AM</span>
-        <span class="time-slot" data-time="10:00 AM">10:00 AM</span>
-        <span class="time-slot" data-time="11:30 AM">11:30 AM</span>
-        <span class="time-slot" data-time="02:00 PM">02:00 PM</span>
-        <span class="time-slot" data-time="03:30 PM">03:30 PM</span>
-      </div>
+        <h3>Patient Details</h3>
+        <input type="text" id="fullName" name="full_name" placeholder="Full Name">
+        <div class="error-msg" id="nameError">Please enter your full name</div>
 
-      <h3>Patient Details</h3>
-      <input type="text" id="fullName" placeholder="Full Name">
-      <div class="error-msg" id="nameError">Please enter your full name</div>
+        <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+        <div class="error-msg" id="phoneError">Please enter a valid phone number</div>
 
-      <input type="tel" id="phone" placeholder="Phone Number">
-      <div class="error-msg" id="phoneError">Please enter a valid phone number</div>
+        <input type="email" id="email" name="email" placeholder="Email Address">
+        <div class="error-msg" id="emailError">Please enter a valid email address</div>
 
-      <input type="email" id="email" placeholder="Email Address">
-      <div class="error-msg" id="emailError">Please enter a valid email address</div>
+        <textarea id="symptoms" name="symptoms" placeholder="Brief symptoms or description"></textarea>
 
-      <textarea id="symptoms" placeholder="Brief symptoms or description"></textarea>
+        <h3>Consultation Type</h3>
+        <div class="consult-types">
+          <div class="type-btn active" data-type="Video Call" onclick="selectType(this)">📹 Video Call</div>
+          <div class="type-btn" data-type="Voice Call" onclick="selectType(this)">📞 Voice Call</div>
+          <div class="type-btn" data-type="Chat Only" onclick="selectType(this)">💬 Chat Only</div>
+        </div>
 
-      <h3>Consultation Type</h3>
-      <div class="consult-types">
-        <div class="type-btn active" data-type="Video Call" onclick="selectType(this)">📹 Video Call</div>
-        <div class="type-btn" data-type="Voice Call" onclick="selectType(this)">📞 Voice Call</div>
-        <div class="type-btn" data-type="Chat Only" onclick="selectType(this)">💬 Chat Only</div>
-      </div>
-
-      <button onclick="confirmBooking()" id="bookBtn" class="book-now-btn">
-        Submit Booking Request
-      </button>
+        <button onclick="confirmBooking()" id="bookBtn" class="book-now-btn" type="button">
+          Submit Booking Request
+        </button>
+      </form>
 
       <!-- Banking Details -->
       <div id="bankingDetails">
@@ -552,7 +548,6 @@
     let selectedReasons = [];
     let selectedType = "Video Call";
 
-    // Initialize Flatpickr
     const fp = flatpickr("#appointmentDate", {
         dateFormat: "Y-m-d",
         minDate: "today",
@@ -602,8 +597,18 @@
                 document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('active'));
                 slot.classList.add('active');
                 selectedTime = slot.dataset.time;
+                document.getElementById("customTime").value = "";
                 updateSummary();
             });
+        });
+
+        // Custom Time Input
+        document.getElementById("customTime").addEventListener("change", function() {
+            if (this.value) {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('active'));
+                selectedTime = this.value;
+                updateSummary();
+            }
         });
     }
 
@@ -669,15 +674,12 @@
 *Patient Name:* ${name}
 *Contact:* ${phone}
 *Email:* ${email}
-
 *Doctor:* ${selectedDoctor}
 *Date:* ${selectedDate}
 *Time:* ${selectedTime}
 *Consultation Type:* ${selectedType}
 *Reason:* ${reasonsText}
-
-*Symptoms:*
-${symptoms || "Not provided"}
+*Symptoms:* ${symptoms || "Not provided"}
 
 Booking fee of R150 noted. 
 Please confirm my appointment.`;
@@ -686,9 +688,8 @@ Please confirm my appointment.`;
         window.open(whatsappURL, '_blank');
 
         document.getElementById('modalMessage').innerHTML = `
-            Your booking request has been sent to <strong>${selectedDoctor}</strong> via WhatsApp.<br><br>
-            Please make the R150 booking fee payment and wait for confirmation from the doctor.<br><br>
-            <strong>Consultation Fee:</strong> R150 (payable directly to the doctor)
+            Your booking request has been sent to <strong>${selectedDoctor}</strong> via WhatsApp and Email.<br><br>
+            Please make the R150 booking fee payment and wait for confirmation from the doctor.
         `;
         document.getElementById('successModal').style.display = 'flex';
 
